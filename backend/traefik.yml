@@ -1,0 +1,40 @@
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: ":443"
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: admin@example.com
+      storage: /certs/acme.json
+      httpChallenge:
+        entryPoint: web
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+
+http:
+  routers:
+    api:
+      rule: "PathPrefix(`/v1`)"
+      service: backend
+      entryPoints:
+        - websecure
+      tls:
+        certresolver: letsencrypt
+
+  services:
+    backend:
+      loadBalancer:
+        servers:
+          - url: "http://backend:8000"

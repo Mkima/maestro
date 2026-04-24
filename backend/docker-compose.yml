@@ -1,0 +1,48 @@
+services:
+  backend:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://kitchen: kitchen@postgres:5432/kitchen
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - JINA_API_KEY=${JINA_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  traefik:
+    image: traefik:v3.0
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/traefik.yml:ro
+      - traefik-certs:/certs
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kitchen
+      POSTGRES_PASSWORD: kitchen
+      POSTGRES_DB: kitchen
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres.conf:/etc/postgres/conf.d/custom.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kitchen"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+  traefik-certs:
+
+networks:
+  default:
+    name: kitchen-net
