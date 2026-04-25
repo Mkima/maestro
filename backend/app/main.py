@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from app.database import Base
 from app.models.recipe import Recipe, Step, Ingredient

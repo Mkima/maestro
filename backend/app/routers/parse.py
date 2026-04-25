@@ -9,9 +9,9 @@ async def parse_url(url: str):
 
 
 @router.post("/scrape")
-async def scrape_recipe(url: str):
+async def scrape_recipe(url: str, verbose: bool = False):
     from app.recipe_parser import RecipeParser
 
     parser = RecipeParser()
-    result = await parser.parse_url(url)
+    result = await parser.parse_url(url, verbose=verbose)
     return result

@@ -1,0 +1,212 @@
+{
+  "recipe": {
+    "recipe_name": "אסאדו בתנור",
+    "servings": 4,
+    "ingredients": [
+      {"item": " carne de res", "amount": "1 כוס"},
+      {"item": "ירקות חתוכים גס", "amount": "1/3 כוס"}, 
+      {"item": "סילאן", "amount": "1/3 כוס"},
+      {"item": "מלח גס", "amount": "כפית גדושה"},
+      {"item": "פלפל שחור גרוס", "amount": "כפיתגדושה"},
+      {"item": "מים", "amount": "3/4 כוס"}
+    ],
+    "steps": [
+      {
+        "step_id": "s1",
+        "instruction": "מחממים תנור ל-160 מעלות, מצב חום עליון תחתון רגיל (לא טורבו).",
+        "category": "passive",
+        "duration_minutes": 15,
+        "requirements": {
+          "tools": [" духов"],
+          "heat_source": "oven", 
+          "temp_celsius": 160
+        },
+        "concurrent_friendly": false,
+        "dependencies": []
+      },
+      {
+        "step_id": "s2",
+        "instruction": "בסיר רחב ושטוח שמתאים לתנור מחממים את שמן הזית.",
+        "category": "active", 
+        "duration_minutes": 5,
+        "requirements": {
+          "tools": ["סיר"],
+          "heat_source": "stovetop",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": false,
+        "dependencies": []
+      },
+      {
+        "step_id": "s3",
+        "instruction": "מוסיפים את נתחי האסאדו וצורבים מכל הכיוונים 2-4 דקות מכל צד או עד הזהבה יפה.",
+        "category": "active", 
+        "duration_minutes": 10,
+        "requirements": {
+          "tools": ["סיר", "כף"],
+          "heat_source": "stovetop",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": false,
+        "dependencies": []
+      },
+      {
+        "step_id": "s4",
+        "instruction": "במקביל לצריבת הבשר, חותכים גס את הירקות (בצל, תפוחי אדמה, בטטה).",
+        "category": "active", 
+        "duration_minutes": 10,
+        "requirements": {
+          "tools": ["סכין"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s5",
+        "instruction": "מסדרים הכל בסיר/תבנית: אם אין לכם סיר רחב שמתאים לתנור, אפשר לצרוב את הבשר בכל מחבת רחבה שיש, ואז את האפייה לעשות בתבנית גדולה לפי אותו סדר מרכיבים.",
+        "category": "active", 
+        "duration_minutes": 10,
+        "requirements": {
+          "tools": ["סיר", "כף"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s6",
+        "instruction": "מניחים את עלי הטימין בתחתית הסיר, מעל מסדרים את הירקות החתוכים גס ואת שיני השום.",
+        "category": "active", 
+        "duration_minutes": 5,
+        "requirements": {
+          "tools": ["כף"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s7", 
+        "instruction": "מעל ובין הירקות שמים את נתחי האסאדו הצרובים.",
+        "category": "active",
+        "duration_minutes": 2,
+        "requirements": {
+          "tools": ["כף"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s8",
+        "instruction": "בקערה מערבבים את הסויה עם הסילאן ויווצקים מעל הבשר.",
+        "category": "active", 
+        "duration_minutes": 5,
+        "requirements": {
+          "tools": ["בקבוק", "כף"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s9",
+        "instruction": "מתבלים את כל תכולת התבנית/סיר במלח ופלפל שחור.",
+        "category": "active", 
+        "duration_minutes": 3,
+        "requirements": {
+          "tools": ["כף"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s10",
+        "instruction": "מוסיפים את המים.",
+        "category": "active", 
+        "duration_minutes": 2,
+        "requirements": {
+          "tools": ["כף"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s11",
+        "instruction": "אוטמים בעזרת נייר אפייה ומעליו רדיד אלומיניום או סוגרים עם מכסה המתאים לתנור. חשוב שהאיטום עם רדיד האלומיניום יהיה יסודי.",
+        "category": "active", 
+        "duration_minutes": 5,
+        "requirements": {
+          "tools": [" giấy אפייה", "רדיד אלומיניום"],
+          "heat_source": "none",
+          "temp_celsius": null
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s12",
+        "instruction": "מבשלים בתנור: מביאים לתנור (160 מעלות) למשך 3-4 שעות, או עד שהבשר התרכך ונהיה נימוח וכל הירקות מבושלים לחלוטין.",
+        "category": "passive",
+        "duration_minutes": 180,
+        "requirements": {
+          "tools": [" духов"],
+          "heat_source": "oven",
+          "temp_celsius": 160
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s13", 
+        "instruction": "אם בתום זמן האפייה הבשר עדיין לא רך, סוגרים שוב את הסיר ואופים שעה נוספת, או יותר, בסוף הוא יתרכך.",
+        "category": "passive",
+        "duration_minutes": 60,
+        "requirements": {
+          "tools": [" духов"],
+          "heat_source": "oven", 
+          "temp_celsius": 160
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      },
+      {
+        "step_id": "s14",
+        "instruction": "אחרי שהבשר רך, מסירים את הכיסוי בזהירות, מכוונים את התנור ל-200 מעלות.",
+        "category": "active", 
+        "duration_minutes": 5,
+        "requirements": {
+          "tools": ["כף"],
+          "heat_source": "oven",
+          "temp_celsius": 200
+        },
+        "concurrent_friendly": false,
+        "dependencies": []
+      },
+      {
+        "step_id": "s15",
+        "instruction": "מחזירים את התבנית/הסיר לעוד 15-20 דקות ללא כיסוי או עד שהכל זהוב ויפה מלמעלה וחלק מהנוזלים התאדו.",
+        "category": "passive", 
+        "duration_minutes": 20,
+        "requirements": {
+          "tools": [" духов"],
+          "heat_source": "oven",
+          "temp_celsius": 200
+        },
+        "concurrent_friendly": true,
+        "dependencies": []
+      }
+    ]
+  },
+  "source_url": "https://www.thekitchencoach.co.il/%D7%90%D7%A1%D7%90%D7%93%D7%95-%D7%91%D7%AA%D7%A0%D7%95%D7%A8/"
+}
