@@ -21,6 +21,7 @@ class RecipeParser:
     def __init__(self):
         self.gemini_api_key = os.getenv("GEMINI_API_KEY")
         self.jina_api_key = os.getenv("JINA_API_KEY")
+        self.groq_api_key = os.getenv("GROQ_API_KEY")
 
     def fetch_recipe_text(self, url: str) -> Optional[str]:
         if not READABILITY_AVAILABLE:
@@ -136,19 +137,41 @@ INSTRUCTIONS:
 TEXT TO PARSE:
 {markdown_content[:8000]}
 """
-
+        
+        # First try Groq API
+        groq_api_key = os.getenv("GROQ_API_KEY")
+        if groq_api_key:
+            try:
+                from groq import Groq
+                client = Groq(api_key=groq_api_key)
+                
+                logger.info("Attempting Groq API for recipe parsing")
+                completion = client.chat.completions.create(
+                    model="meta-llama/llama-4-scout-17b-16e-instruct",
+                    messages=[
+                        {"role": "system", "content": system_instruction},
+                        {"role": "user", "content": f"Parse this recipe:\n\n{markdown_content[:8000]}"}
+                    ],
+                    response_format={"type": "json_object"},
+                    temperature=0.1,
+                )
+                
+                response_text = completion.choices[0].message.content
+                logger.info("Groq API parsing successful")
+                return json.loads(response_text)
+            except Exception as e:
+                print(f"Groq API error: {e}, falling back to local LLM...")
+        
+        # Fallback to local LLM if Groq not available or fails
         local_url = os.getenv("LOCAL_LLM_URL")
         if not local_url:
-            return {"error": "LOCAL_LLM_URL not configured"}
+            return {"error": "No valid LLM service configured"}
 
         try:
             import httpx
             logger.info(f"Attempting local LLM at {local_url}")
-            # Prepare request in format expected by LM Studio 
-            model_name = os.getenv("LOCAL_LLM_MODEL", "llama3.2:latest")
-            
             payload = {
-                "model": model_name,
+                "model": os.getenv("LOCAL_LLM_MODEL", "llama3.2:latest"),
                 "messages": [
                     {"role": "user", "content": prompt}
                 ],
@@ -157,7 +180,6 @@ TEXT TO PARSE:
                 "stream": False
             }
             
-            # Try sending with proper headers for LM Studio compatibility 
             response = httpx.post(
                 local_url,
                 json=payload,
@@ -192,17 +214,7 @@ TEXT TO PARSE:
                 
                 # Try to parse as JSON first
                 try:
-                    result = json.loads(content.strip())
-                    
-                    # Add validation for completeness
-                    if verbose and "recipe" in result:
-                        recipe_data = result["recipe"]
-                        if "ingredients" in recipe_data and "steps" in recipe_data:
-                            logger.info(f"Recipe completeness check:")
-                            logger.info(f"  - Ingredients found: {len(recipe_data['ingredients'])}")
-                            logger.info(f"  - Steps found: {len(recipe_data['steps'])}")
-                            
-                    return result
+                    return json.loads(content.strip())
                 except json.JSONDecodeError as e:
                     # If not valid JSON, log the raw content for debugging and return it
                     logger.error(f"Failed to parse LLM output as JSON: {e}")
@@ -229,7 +241,7 @@ TEXT TO PARSE:
 
         classifier = StepClassifier()
         for step in structured.get("steps", []):
-            classification = await classifier.classify_step(step["instruction"])
+            classification = classifier.classify_step(step["instruction"])
             step["category"] = classification.get("category", "active")
             if not step.get("duration_minutes"):
                 step["duration_minutes"] = classification.get("estimated_duration", 5)
